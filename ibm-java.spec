@@ -1,11 +1,9 @@
-
 %define __spec_install_post exit 0
-
 Summary:	IBM Java virtual machine
 Summary(pl):	Implementacje Javy firmy IBM
 Name:		ibm-java
 Version:	1.3
-Release:	1
+Release:	2
 License:	Look into documentation
 Group:		Development/Languages
 Group(de):	Entwicklung/Sprachen
@@ -14,10 +12,11 @@ Source0:	IBMJava2-JRE-13.tgz
 Patch0:		%{name}-bash.patch
 URL:		http://www.ibm.com/developer/java/
 Provides:	java1.3
+Provides:	java
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define	java	IBMJava2-13
+%define		java		IBMJava2-13
 %define		jredir		%{_libdir}/%{java}
 
 %description
@@ -34,10 +33,15 @@ Pakiet zawiera implementacje Javy firmy IBM.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_libdir}
+install -d $RPM_BUILD_ROOT{%{_libdir},%{_bindir}}
 
 cp -a jre $RPM_BUILD_ROOT%{_libdir}/%{java}
 ln -sf %{java} $RPM_BUILD_ROOT%{_libdir}/java-jre 
+
+for bin in $RPM_BUILD_ROOT%{jredir}/bin/exe/*; do
+	nbin=$(basename "$bin")
+	ln -sf %{jredir}/bin/${nbin} $RPM_BUILD_ROOT%{_bindir}/${nbin}
+done
 
 gzip -9nf docs/*
 
@@ -47,6 +51,8 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc docs/*.gz
+
+%{_bindir}/*
 
 %dir %{jredir}
 %{_libdir}/java-jre
