@@ -1,0 +1,90 @@
+diff -Nur IBMJava2-13.orig/jre/bin/JavaPluginControlPanel IBMJava2-13/jre/bin/JavaPluginControlPanel
+--- IBMJava2-13.orig/jre/bin/JavaPluginControlPanel	Sat Jun 24 02:32:01 2000
++++ IBMJava2-13/jre/bin/JavaPluginControlPanel	Mon Aug 28 19:20:56 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh
++#!/bin/bash
+ # Shell Script to run the Java(tm) Plug-in control panel.
+ 
+ ADIR=`dirname $0`
+diff -Nur IBMJava2-13.orig/jre/bin/java IBMJava2-13/jre/bin/java
+--- IBMJava2-13.orig/jre/bin/java	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/java	Mon Aug 28 19:20:56 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/javaw IBMJava2-13/jre/bin/javaw
+--- IBMJava2-13.orig/jre/bin/javaw	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/javaw	Mon Aug 28 19:20:56 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/keytool IBMJava2-13/jre/bin/keytool
+--- IBMJava2-13.orig/jre/bin/keytool	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/keytool	Mon Aug 28 19:20:56 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/oldjava IBMJava2-13/jre/bin/oldjava
+--- IBMJava2-13.orig/jre/bin/oldjava	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/oldjava	Mon Aug 28 19:20:57 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/oldjavaw IBMJava2-13/jre/bin/oldjavaw
+--- IBMJava2-13.orig/jre/bin/oldjavaw	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/oldjavaw	Mon Aug 28 19:20:57 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/policytool IBMJava2-13/jre/bin/policytool
+--- IBMJava2-13.orig/jre/bin/policytool	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/policytool	Mon Aug 28 19:20:57 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/rmid IBMJava2-13/jre/bin/rmid
+--- IBMJava2-13.orig/jre/bin/rmid	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/rmid	Mon Aug 28 19:20:57 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/rmiregistry IBMJava2-13/jre/bin/rmiregistry
+--- IBMJava2-13.orig/jre/bin/rmiregistry	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/rmiregistry	Mon Aug 28 19:20:57 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
+diff -Nur IBMJava2-13.orig/jre/bin/tnameserv IBMJava2-13/jre/bin/tnameserv
+--- IBMJava2-13.orig/jre/bin/tnameserv	Sat Jun 24 02:32:00 2000
++++ IBMJava2-13/jre/bin/tnameserv	Mon Aug 28 19:20:58 2000
+@@ -1,4 +1,4 @@
+-#!/bin/sh -p
++#!/bin/bash -p
+ #
+ # @(#)java_wrapper    99/03/09
+ #
