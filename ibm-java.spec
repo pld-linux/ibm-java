@@ -7,6 +7,7 @@ Release:	3
 License:	Look into documentation
 Group:		Development/Languages/Java
 Source0:	IBMJava2-JRE-13.tgz
+# Source0-md5:	b316ee56d95121f47abd20a02c582431
 Patch0:		%{name}-bash.patch
 URL:		http://www.ibm.com/developer/java/
 Provides:	jre = %{version}
