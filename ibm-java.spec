@@ -1,21 +1,30 @@
-%define __spec_install_post exit 0
+%define 	__spec_install_post	exit 0
+%define		halfname		ibm-java
+%define		ver			1.3
+
 Summary:	IBM Java virtual machine
 Summary(pl):	Implementacja Javy firmy IBM
-Name:		ibm-java
-Version:	1.3
-Release:	3
+Name:		%{halfname}-%{ver}
+Version:	0
+Release:	1
 License:	Look into documentation
 Group:		Development/Languages/Java
 Source0:	IBMJava2-JRE-13.tgz
-Patch0:		%{name}-bash.patch
+Patch0:		%{halfname}-bash.patch
 URL:		http://www.ibm.com/developer/java/
-Provides:	jre = %{version}
+Provides:	jre = %{ver}
 Provides:	jar
+PreReq:		java-env
+Requires:	java-env
+PreReq:		java-env
+Requires(post,preun,postun): java-env
+BuildRequires:	java-env
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		java		IBMJava2-13
-%define		jredir		%{_libdir}/%{java}
+%define		javadir		%{_libdir}/%{name}
+%define		javacfgdir	/etc/sysconfig/java
 
 %description
 This is IBM's Java implementation.
@@ -31,76 +40,96 @@ Pakiet zawiera implementacjê Javy firmy IBM.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_libdir},%{_bindir}}
+install -d \
+    $RPM_BUILD_ROOT%{javadir} \
+    $RPM_BUILD_ROOT%{javacfgdir}
 
-cp -a jre $RPM_BUILD_ROOT%{_libdir}/%{java}
-ln -sf %{java} $RPM_BUILD_ROOT%{_libdir}/java-jre
+cp -a jre/* $RPM_BUILD_ROOT%{javadir}
 
-for bin in $RPM_BUILD_ROOT%{jredir}/bin/exe/*; do
+# create some config files
+echo "MAINDIR=%{name}" > $RPM_BUILD_ROOT%{javacfgdir}/jre.%{name}
+
+%define	lnfile	$RPM_BUILD_ROOT%{javacfgdir}/links.jre.%{name}
+
+echo "%{javadir} %{_libdir}/java-jre"
+for bin in $RPM_BUILD_ROOT%{javadir}/bin/exe/*; do
 	nbin=$(basename "$bin")
-	ln -sf %{jredir}/bin/${nbin} $RPM_BUILD_ROOT%{_bindir}/${nbin}
+	echo "%{javadir}/bin/${nbin} %{_bindir}/${nbin}" >> %{lnfile}
 done
+
+# cp files
+javacpmgr --findjars $RPM_BUILD_ROOT > $RPM_BUILD_ROOT%{javacfgdir}/cp.jre.%{name}
+# end of config files creation
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post
+javaenv --setjava
+
+%preun
+javaenv --erasejavaif "jre.%{name}"
+
+%postun
+javaenv --setjava
 
 %files
 %defattr(644,root,root,755)
 %doc docs/*
 
-%attr(755,root,root) %{_bindir}/*
+%dir %{javadir}
+%dir %{javadir}/bin
+%attr(755,root,root) %{javadir}/bin/JavaPluginControlPanel
+%attr(755,root,root) %{javadir}/bin/jvmtcf
+%attr(755,root,root) %{javadir}/bin/libdt_socket.so
+%attr(755,root,root) %{javadir}/bin/libjitc.so
+%attr(755,root,root) %{javadir}/bin/oldjava
+%attr(755,root,root) %{javadir}/bin/awt_robot
+%attr(755,root,root) %{javadir}/bin/keytool
+%attr(755,root,root) %{javadir}/bin/libfontmanager.so
+%attr(755,root,root) %{javadir}/bin/libjpeg.so
+%attr(755,root,root) %{javadir}/bin/oldjavaw
+%attr(755,root,root) %{javadir}/bin/libJdbcOdbc.so
+%attr(755,root,root) %{javadir}/bin/libhpi.so
+%attr(755,root,root) %{javadir}/bin/libjsound.so
+%attr(755,root,root) %{javadir}/bin/policytool
+%attr(755,root,root) %{javadir}/bin/libagent.so
+%attr(755,root,root) %{javadir}/bin/libhprof.so
+%attr(755,root,root) %{javadir}/bin/libnet.so
+%attr(755,root,root) %{javadir}/bin/rmid
+%attr(755,root,root) %{javadir}/bin/java
+%attr(755,root,root) %{javadir}/bin/libawt.so
+%attr(755,root,root) %{javadir}/bin/libjava.so
+%attr(755,root,root) %{javadir}/bin/liborb.so
+%attr(755,root,root) %{javadir}/bin/rmiregistry
+%attr(755,root,root) %{javadir}/bin/javaplugin.so
+%attr(755,root,root) %{javadir}/bin/libcmm.so
+%attr(755,root,root) %{javadir}/bin/libjavaplugin12.so
+%attr(755,root,root) %{javadir}/bin/libxhpi.so
+%attr(755,root,root) %{javadir}/bin/tnameserv
+%attr(755,root,root) %{javadir}/bin/javaw
+%attr(755,root,root) %{javadir}/bin/libdcpr.so
+%attr(755,root,root) %{javadir}/bin/libjdwp.so
+%attr(755,root,root) %{javadir}/bin/libzip.so
 
-%dir %{jredir}
-%{_libdir}/java-jre
+%dir %{javadir}/bin/exe
+%attr(755,root,root) %{javadir}/bin/exe/java
+%attr(755,root,root) %{javadir}/bin/exe/javaw
+%attr(755,root,root) %{javadir}/bin/exe/keytool
+%attr(755,root,root) %{javadir}/bin/exe/oldjava
+%attr(755,root,root) %{javadir}/bin/exe/oldjavaw
+%attr(755,root,root) %{javadir}/bin/exe/policytool
+%attr(755,root,root) %{javadir}/bin/exe/rmid
+%attr(755,root,root) %{javadir}/bin/exe/rmiregistry
+%attr(755,root,root) %{javadir}/bin/exe/tnameserv
 
-%dir %{jredir}/bin
-%attr(755,root,root) %{jredir}/bin/JavaPluginControlPanel
-%attr(755,root,root) %{jredir}/bin/jvmtcf
-%attr(755,root,root) %{jredir}/bin/libdt_socket.so
-%attr(755,root,root) %{jredir}/bin/libjitc.so
-%attr(755,root,root) %{jredir}/bin/oldjava
-%attr(755,root,root) %{jredir}/bin/awt_robot
-%attr(755,root,root) %{jredir}/bin/keytool
-%attr(755,root,root) %{jredir}/bin/libfontmanager.so
-%attr(755,root,root) %{jredir}/bin/libjpeg.so
-%attr(755,root,root) %{jredir}/bin/oldjavaw
-%attr(755,root,root) %{jredir}/bin/libJdbcOdbc.so
-%attr(755,root,root) %{jredir}/bin/libhpi.so
-%attr(755,root,root) %{jredir}/bin/libjsound.so
-%attr(755,root,root) %{jredir}/bin/policytool
-%attr(755,root,root) %{jredir}/bin/libagent.so
-%attr(755,root,root) %{jredir}/bin/libhprof.so
-%attr(755,root,root) %{jredir}/bin/libnet.so
-%attr(755,root,root) %{jredir}/bin/rmid
-%attr(755,root,root) %{jredir}/bin/java
-%attr(755,root,root) %{jredir}/bin/libawt.so
-%attr(755,root,root) %{jredir}/bin/libjava.so
-%attr(755,root,root) %{jredir}/bin/liborb.so
-%attr(755,root,root) %{jredir}/bin/rmiregistry
-%attr(755,root,root) %{jredir}/bin/javaplugin.so
-%attr(755,root,root) %{jredir}/bin/libcmm.so
-%attr(755,root,root) %{jredir}/bin/libjavaplugin12.so
-%attr(755,root,root) %{jredir}/bin/libxhpi.so
-%attr(755,root,root) %{jredir}/bin/tnameserv
-%attr(755,root,root) %{jredir}/bin/javaw
-%attr(755,root,root) %{jredir}/bin/libdcpr.so
-%attr(755,root,root) %{jredir}/bin/libjdwp.so
-%attr(755,root,root) %{jredir}/bin/libzip.so
+%dir %{javadir}/bin/classic
+%{javadir}/bin/classic/Xusage.txt
+%attr(755,root,root) %{javadir}/bin/classic/libjvm.so
 
-%dir %{jredir}/bin/exe
-%attr(755,root,root) %{jredir}/bin/exe/java
-%attr(755,root,root) %{jredir}/bin/exe/javaw
-%attr(755,root,root) %{jredir}/bin/exe/keytool
-%attr(755,root,root) %{jredir}/bin/exe/oldjava
-%attr(755,root,root) %{jredir}/bin/exe/oldjavaw
-%attr(755,root,root) %{jredir}/bin/exe/policytool
-%attr(755,root,root) %{jredir}/bin/exe/rmid
-%attr(755,root,root) %{jredir}/bin/exe/rmiregistry
-%attr(755,root,root) %{jredir}/bin/exe/tnameserv
+%dir %{javadir}/lib
+%{javadir}/lib/*
 
-%dir %{jredir}/bin/classic
-%{jredir}/bin/classic/Xusage.txt
-%attr(755,root,root) %{jredir}/bin/classic/libjvm.so
-
-%dir %{jredir}/lib
-%{jredir}/lib/*
+%config(noreplace) %verify(not size mtime md5) %{javacfgdir}/cp.*
+%{javacfgdir}/links.*
+%{javacfgdir}/jre.*
