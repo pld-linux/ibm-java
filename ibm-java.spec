@@ -3,7 +3,7 @@ Summary:	IBM Java virtual machine
 Summary(pl):	Implementacje Javy firmy IBM
 Name:		ibm-java
 Version:	1.3
-Release:	2
+Release:	3
 License:	Look into documentation
 Group:		Development/Languages
 Group(de):	Entwicklung/Sprachen
