@@ -13,6 +13,7 @@ Patch0:		%{name}-bash.patch
 URL:		http://www.ibm.com/developer/java/
 Provides:	java1.3
 Provides:	java
+Provides:	jar
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
