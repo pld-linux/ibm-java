@@ -41,14 +41,12 @@ for bin in $RPM_BUILD_ROOT%{jredir}/bin/exe/*; do
 	ln -sf %{jredir}/bin/${nbin} $RPM_BUILD_ROOT%{_bindir}/${nbin}
 done
 
-gzip -9nf docs/*
-
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc docs/*.gz
+%doc docs/*
 
 %attr(755,root,root) %{_bindir}/*
 
