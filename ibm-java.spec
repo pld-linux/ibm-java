@@ -1,6 +1,8 @@
 
 %define jredir %{_libdir}/jre
 
+%define __spec_install_post exit 0
+
 Summary:	IBM Java virtual machine v1.3
 Name:		ibm-java
 Version:	1.3
