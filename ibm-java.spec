@@ -17,7 +17,8 @@ Provides:	java1.3
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		jredir		%{_libdir}/jre
+%define	java	IBMJava2-13
+%define		jredir		%{_libdir}/%{java}
 
 %description
 This is IBM's Java implementation.
@@ -26,7 +27,7 @@ This is IBM's Java implementation.
 Pakiet zawiera implementacje Javy firmy IBM.
 
 %prep
-%setup -q -n IBMJava2-13
+%setup -q -n %{java}
 %patch0 -p1
 
 %build
@@ -35,7 +36,8 @@ Pakiet zawiera implementacje Javy firmy IBM.
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}
 
-cp -a jre $RPM_BUILD_ROOT%{_libdir}
+cp -a jre $RPM_BUILD_ROOT%{_libdir}/%{java}
+ln -sf java-jre $RPM_BUILD_ROOT%{_libdir}/%{java}
 
 gzip -9nf docs/*
 
@@ -47,6 +49,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/*.gz
 
 %dir %{jredir}
+%{_libdir}/java-jre
 
 %dir %{jredir}/bin
 %attr(755,root,root) %{jredir}/bin/JavaPluginControlPanel
