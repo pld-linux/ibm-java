@@ -52,7 +52,7 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc docs/*.gz
 
-%{_bindir}/*
+%attr(755,root,root) %{_bindir}/*
 
 %dir %{jredir}
 %{_libdir}/java-jre
