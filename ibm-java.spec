@@ -37,7 +37,7 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_libdir}
 
 cp -a jre $RPM_BUILD_ROOT%{_libdir}/%{java}
-ln -sf java-jre $RPM_BUILD_ROOT%{_libdir}/%{java}
+ln -sf %{java} $RPM_BUILD_ROOT%{_libdir}/java-jre 
 
 gzip -9nf docs/*
 
