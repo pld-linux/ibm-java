@@ -11,8 +11,7 @@ Group(pl):	Programowanie/Jêzyki
 Source0:	IBMJava2-JRE-13.tgz
 Patch0:		%{name}-bash.patch
 URL:		http://www.ibm.com/developer/java/
-Provides:	java1.3
-Provides:	java
+Provides:	jre = %{version}
 Provides:	jar
 ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
