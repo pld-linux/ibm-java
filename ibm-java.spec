@@ -5,9 +5,9 @@ Name:		ibm-java
 Version:	1.3
 Release:	3
 License:	Look into documentation
-Group:		Development/Languages
-Group(de):	Entwicklung/Sprachen
-Group(pl):	Programowanie/Jêzyki
+Group:		Development/Languages/Java
+Group(de):	Entwicklung/Sprachen/Java
+Group(pl):	Programowanie/Jêzyki/Java
 Source0:	IBMJava2-JRE-13.tgz
 Patch0:		%{name}-bash.patch
 URL:		http://www.ibm.com/developer/java/
