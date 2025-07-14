@@ -26,7 +26,7 @@ Pakiet zawiera implementację Javy firmy IBM.
 
 %prep
 %setup -q -n %{java}
-%patch0 -p1
+%patch -P0 -p1
 
 %build
 
